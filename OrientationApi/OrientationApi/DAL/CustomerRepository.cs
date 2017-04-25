@@ -1,23 +1,26 @@
-﻿using OrientationApi.Controllers.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using OrientationApi.Models;
 using System.Data;
 using Dapper;
+using OrientationApi.Controllers.Interfaces;
+using OrientationApi.Models;
 
 namespace OrientationApi.DAL
 {
     public class CustomerRepository : ICustomerRepository
     {
-        readonly IDbConnection _dbConnection;
+        private readonly IDbConnection _dbConnection;
 
         public CustomerRepository(IDbConnection connection)
         {
             _dbConnection = connection;
         }
 
-    
+        public void Update(Customer updatedCustomer)
+        {
+            var sql = @"UPDATE Customer SET FirstName = 'Mr', LastName = 'Ostrander' WHERE CustomerId = 5";
+
+            _dbConnection.Execute(sql, updatedCustomer);
+        }
     }
 }
