@@ -9,8 +9,6 @@ namespace OrientationApi.Controllers.Interfaces
 {
     public interface ICartOrderRepository
     {
-        Product GetSingleProduct();
 
-        List<Product> GetAllProducts();
     }
 }
