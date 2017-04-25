@@ -27,7 +27,6 @@ namespace OrientationApi.DependencyResolution {
                 scan => {
                     scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
-					scan.With(new ControllerConvention());
                 });
             //For<IExample>().Use<Example>();
         }
