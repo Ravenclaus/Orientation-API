@@ -5,5 +5,7 @@ namespace OrientationApi.Controllers.Interfaces
     public interface ICustomerRepository
     {
         void Update(Customer updatedCustomer);
+
+        void Delete(Customer deleteCustomer);
     }
 }

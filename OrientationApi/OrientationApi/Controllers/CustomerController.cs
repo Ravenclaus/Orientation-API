@@ -30,6 +30,18 @@ namespace OrientationApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        [HttpDelete]
+        public HttpResponseMessage DeleteCustomer(Customer customer)
+        {
+            if (string.IsNullOrWhiteSpace(customer.FirstName))
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "User doesnt exist");
+            _customerRepository.Delete(customer);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
+
+        }
+                
+
    
     }
 }

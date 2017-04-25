@@ -22,5 +22,12 @@ namespace OrientationApi.DAL
 
             _dbConnection.Execute(sql, updatedCustomer);
         }
+
+        public void Delete(Customer deleteCustomer)
+        {
+            var sql = @"DELETE FROM Customer WHERE CustomerId = 2";
+
+            _dbConnection.Execute(sql, deleteCustomer);
+        }
     }
 }
