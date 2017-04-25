@@ -21,6 +21,7 @@ namespace OrientationApi.DAL
         {
             var sql = @"UPDATE Customer SET FirstName = 'Mr', LastName = 'Ostrander' WHERE CustomerId = 5";
 
+            
             _dbConnection.Execute(sql, updatedCustomer);
         }
 
