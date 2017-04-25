@@ -11,7 +11,7 @@ namespace OrientationApi.DAL
 {
     public class CustomerRepository : ICustomerRepository
     {
-        IDbConnection _dbConnection;
+        readonly IDbConnection _dbConnection;
 
         public CustomerRepository(IDbConnection connection)
         {
@@ -22,13 +22,14 @@ namespace OrientationApi.DAL
         {
             var sql = @"Select customerid, username, firstname, lastname from Customer";
 
-            _dbConnection.Execute(sql, newCustomer);
+            return _dbConnection.Query<Customer>(sql);
         }
 
         public void Save(Customer newCustomer)
         {
             var sql = @"Insert into Customer(customerid, username, firstname, lastname)
                         Values(@customerid, @username, @firstname, @lastname)";
+
             _dbConnection.Execute(sql, newCustomer);
         }
     }
