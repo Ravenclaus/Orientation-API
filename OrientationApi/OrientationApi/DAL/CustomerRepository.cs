@@ -10,6 +10,7 @@ namespace OrientationApi.DAL
     public class CustomerRepository : ICustomerRepository
     {
         private readonly IDbConnection _dbConnection;
+        Customer _customer = new Customer();
 
         public CustomerRepository(IDbConnection connection)
         {

@@ -30,6 +30,7 @@ namespace OrientationApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        //[api/customer/{customerId}]
         [HttpDelete]
         public HttpResponseMessage DeleteCustomer(Customer customer)
         {
@@ -40,8 +41,6 @@ namespace OrientationApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
 
         }
-                
 
-   
     }
 }
