@@ -10,7 +10,6 @@ using Dapper;
 
 namespace OrientationApi.Controllers
 {
-    [RoutePrefix("api/products")]
     public class ProductController : ApiController
     {
         private readonly IProductRepository _productRepository;
@@ -22,53 +21,71 @@ namespace OrientationApi.Controllers
 
         [HttpPut]
         //UpdateProduct
-        public HttpResponseMessage UpdateProduct(Product product)
+        public HttpResponseMessage RoutingForUpdateProduct(Product updatedProduct)
         {
-            if (string.IsNullOrWhiteSpace(product.ProductName))
+            if (string.IsNullOrWhiteSpace(updatedProduct.ProductName))
+            {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid product name");
-            _productRepository.UpdateProductInfo(product);
+            }
+            else if (updatedProduct.ProductPrice <= 0)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid. Product Price cannot be 0 or negative.");
+            }
+
+            _productRepository.UpdateProductInfo(updatedProduct);
             
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpGet]
+        [Route("api/product/")]
         //GetAllProducts
-        public HttpResponseMessage GetAllProducts()
+        public HttpResponseMessage RoutingCallForGetAllProducts()
         {
-            var products = _productRepository.GetAllProducts();
+            var allProducts = _productRepository.GetAllProducts();
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, allProducts);
         }
 
         [HttpGet]
+        [Route("api/product/{id}")]
         //GetSingleProduct
-        public HttpResponseMessage GetSingleProduct(int productId)
+        public HttpResponseMessage RoutingCallForGetSingleProduct(int productId)
         {
-            var product = _productRepository.GetSingleProduct(productId);
+            var singleProduct = _productRepository.GetSingleProduct(productId);
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+            return Request.CreateResponse(HttpStatusCode.OK, singleProduct);
         }
 
         [HttpPost]
+        [Route("api/product/")]
         //AddProduct
-        public HttpResponseMessage AddProduct(Product product)
+        public HttpResponseMessage RoutingForAddProduct(Product newProduct) //newProduct bc we are adding
         {
-            if (string.IsNullOrWhiteSpace(product.ProductName))
+            if (string.IsNullOrWhiteSpace(newProduct.ProductName))
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid product name");
             }
+            else if (newProduct.ProductPrice == 0 || newProduct.ProductPrice < 0)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid product price");
+            }
 
-            _productRepository.Save(product);
+            _productRepository.Save(newProduct);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpDelete]
+        [Route("api/product/{id}")]
         //DeleteProduct
-        public HttpResponseMessage DeleteProduct (int productIdToDelete)
+        public HttpResponseMessage RoutingForDeleteProduct (int productIdToDelete)
         {
-            if (string.IsNullOrWhiteSpace(product.ProductName))
+            if (productIdToDelete <= 0)
+            {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Product doesnt exist");
+            }
+
             _productRepository.DeleteProduct(productIdToDelete);
 
             return Request.CreateResponse(HttpStatusCode.OK);

@@ -13,9 +13,13 @@ namespace OrientationApi.Controllers.Interfaces
 
         List<Product> GetAllProducts();
 
-        void Update(Product updatedProduct);
+        void Save(Product product);
 
-        void Delete(Product deleteProduct);
-        void GetAll();
+        Product AddProduct(Product newProduct);
+
+        void UpdateProductInfo(Product updatedProduct);
+
+        void DeleteProduct(int productIdToDelete);
     }
 }
+

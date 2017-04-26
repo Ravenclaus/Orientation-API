@@ -7,5 +7,6 @@ namespace OrientationApi.DAL
 {
     public class ProductRepository
     {
+
     }
 }

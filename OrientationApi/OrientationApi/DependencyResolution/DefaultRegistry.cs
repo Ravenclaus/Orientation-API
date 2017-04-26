@@ -18,8 +18,14 @@
 namespace OrientationApi.DependencyResolution {
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
-	
-    public class DefaultRegistry : Registry {
+    using StructureMap;
+    using System.Data;
+    using Dapper;
+    using System.Data.SqlClient;
+    using System.Configuration;
+
+    public class DefaultRegistry : Registry
+    {
         #region Constructors and Destructors
 
         public DefaultRegistry() {
@@ -28,7 +34,7 @@ namespace OrientationApi.DependencyResolution {
                     scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
                 });
-            //For<IExample>().Use<Example>();
+            For<IDbConnection>().Use(c => new SqlConnection(ConfigurationManager.ConnectionStrings["Crookshanks"].ConnectionString));
         }
 
         #endregion

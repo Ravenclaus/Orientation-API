@@ -22,7 +22,6 @@ namespace OrientationApi.Controllers
         [HttpPut]
         public HttpResponseMessage PutUpdateCustomer(Customer customer)
         {
-
             if (string.IsNullOrWhiteSpace(customer.UserName))
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
             _customerRepository.Update(customer);
