@@ -15,7 +15,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Microsoft.Win32;
+
 namespace OrientationApi.DependencyResolution {
+    using StructureMap;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
     using System.Configuration;
@@ -31,10 +34,11 @@ namespace OrientationApi.DependencyResolution {
                     scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
                 });
-            //For<IExample>().Use<Example>();
             For<IDbConnection>().Use(c => new SqlConnection(ConfigurationManager.ConnectionStrings["Crookshanks"].ConnectionString));
-        }
 
+        }
         #endregion
     }
+
 }
+
