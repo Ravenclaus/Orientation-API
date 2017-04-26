@@ -22,13 +22,18 @@ namespace OrientationApi.DAL
         {
             var sql = @"Select customerid, username, firstname, lastname from Customer";
 
+            var guid = Guid.NewGuid();
+            var customer = _dbConnection.Query<Customer>("Select Username = @Username, FirstName = @FirstName, LastName = @LastName, CustomerId = @CustomerId", new { Customer = (int?)null, CustomerId = guid });
+
+            customer.First().FirstName.
+
             return _dbConnection.Query<Customer>(sql);
         }
 
         public void Save(Customer newCustomer)
         {
-            var sql = @"Insert into Customer(customerid, username, firstname, lastname)
-                        Values(@customerid, @username, @firstname, @lastname)";
+            var sql = @"Insert into Customer(username, firstname, lastname)
+                        Values( 'kate', 'blaze', 'kblaze')";
 
             _dbConnection.Execute(sql, newCustomer);
         }

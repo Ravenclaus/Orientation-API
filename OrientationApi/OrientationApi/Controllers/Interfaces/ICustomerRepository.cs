@@ -12,5 +12,7 @@ namespace OrientationApi.Controllers.Interfaces
         void Save(Customer newCustomer);
 
         IEnumerable<Customer> GetAll();
+
+        //void GetOne(int CustomerId);
     }
 }

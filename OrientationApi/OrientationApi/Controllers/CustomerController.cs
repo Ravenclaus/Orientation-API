@@ -32,6 +32,15 @@ namespace OrientationApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        //[HttpGet]
+        //[Route("api/customer/{id}")]
+        //public HttpResponseMessage GetOne()
+        //{
+        //    var customers = _customerRepository.GetOne();
+
+        //    return Request.CreateResponse(HttpStatusCode.OK, customers);
+        //}
+
         [HttpGet]
         [Route("api/customer")]
         public HttpResponseMessage GetAll()
