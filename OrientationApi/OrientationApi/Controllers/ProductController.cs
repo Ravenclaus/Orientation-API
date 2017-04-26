@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace OrientationApi.Controllers
 {
+    [RoutePrefix("api/product")]
     public class ProductController : ApiController
     {
         readonly IProductRepository _productRepository;
@@ -30,7 +31,7 @@ namespace OrientationApi.Controllers
 
         //Get All
         [HttpGet]
-        [Route("api/product")]
+        //[Route("api/product")]
         public HttpResponseMessage RoutingCallForGettingAllProducts()
         {
             var allProducts = _productRepository.GetAllProducts();
