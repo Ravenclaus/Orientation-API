@@ -1,16 +1,21 @@
-﻿using System;
+﻿using OrientationApi.Controllers.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using Dapper;
 using OrientationApi.Controllers.Interfaces;
 using OrientationApi.Models;
+using System.Linq;
+using System.Web;
+using OrientationApi.Models;
+using System.Data;
+using Dapper;
 
 namespace OrientationApi.DAL
 {
     public class CustomerRepository : ICustomerRepository
     {
         private readonly IDbConnection _dbConnection;
-        Customer _customer = new Customer();
 
         public CustomerRepository(IDbConnection connection)
         {
@@ -30,6 +35,21 @@ namespace OrientationApi.DAL
             var sql = @"DELETE FROM Customer WHERE CustomerId = 2";
 
             _dbConnection.Execute(sql, deleteCustomer);
+        }
+
+        public IEnumerable<Customer> GetAll()
+        {
+            var sql = @"Select customerid, username, firstname, lastname from Customer";
+
+            return _dbConnection.Query<Customer>(sql);
+        }
+
+        public void Save(Customer newCustomer)
+        {
+            var sql = @"Insert into Customer(customerid, username, firstname, lastname)
+                        Values(@customerid, @username, @firstname, @lastname)";
+
+            _dbConnection.Execute(sql, newCustomer);
         }
     }
 }

@@ -15,6 +15,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Microsoft.Win32;
+
 namespace OrientationApi.DependencyResolution {
     using StructureMap;
     using StructureMap.Configuration.DSL;
@@ -24,7 +26,7 @@ namespace OrientationApi.DependencyResolution {
     using System.Data.SqlClient;
 
     public class DefaultRegistry : Registry {
-        #region #region Constructors and Destructors
+        #region Constructors and Destructors
 
         public DefaultRegistry() {
             Scan(
@@ -37,4 +39,6 @@ namespace OrientationApi.DependencyResolution {
         }
         #endregion
     }
+
 }
+
