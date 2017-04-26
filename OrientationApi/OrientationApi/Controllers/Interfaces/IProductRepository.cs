@@ -11,15 +11,12 @@ namespace OrientationApi.Controllers.Interfaces
     {
         Product GetSingleProduct(int productId);
 
-        List<Product> GetAllProducts();
+        IEnumerable<Product> GetAllProducts();
 
-        void Save(Product product);
-
-        Product AddProduct(Product newProduct);
+        void AddProduct(Product newProduct);
 
         void UpdateProductInfo(Product updatedProduct);
 
         void DeleteProduct(int productIdToDelete);
     }
 }
-

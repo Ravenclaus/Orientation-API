@@ -10,8 +10,10 @@ using Dapper;
 
 namespace OrientationApi.Controllers
 {
+    [RoutePrefix("api/product")]
     public class ProductController : ApiController
     {
+        
         private readonly IProductRepository _productRepository;
 
         public ProductController(IProductRepository productRepository)
@@ -38,7 +40,6 @@ namespace OrientationApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/product/")]
         //GetAllProducts
         public HttpResponseMessage RoutingCallForGetAllProducts()
         {
@@ -48,7 +49,6 @@ namespace OrientationApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/product/{id}")]
         //GetSingleProduct
         public HttpResponseMessage RoutingCallForGetSingleProduct(int productId)
         {
@@ -58,7 +58,6 @@ namespace OrientationApi.Controllers
         }
 
         [HttpPost]
-        [Route("api/product/")]
         //AddProduct
         public HttpResponseMessage RoutingForAddProduct(Product newProduct) //newProduct bc we are adding
         {
@@ -71,13 +70,12 @@ namespace OrientationApi.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid product price");
             }
 
-            _productRepository.Save(newProduct);
+            //_productRepository.Save(newProduct);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpDelete]
-        [Route("api/product/{id}")]
         //DeleteProduct
         public HttpResponseMessage RoutingForDeleteProduct (int productIdToDelete)
         {
