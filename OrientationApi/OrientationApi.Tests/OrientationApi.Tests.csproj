@@ -67,6 +67,7 @@
     <Compile Include="CartOrderTests.cs" />
     <Compile Include="LineItemTests.cs" />
     <Compile Include="ProductTests.cs" />
+    <Compile Include="AddCustomerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OrientationApi\OrientationApi.csproj">

@@ -15,7 +15,7 @@ namespace OrientationApi.DAL
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private readonly IDbConnection _dbConnection;
+        readonly IDbConnection _dbConnection;
 
         public CustomerRepository(IDbConnection connection)
         {
@@ -24,15 +24,14 @@ namespace OrientationApi.DAL
 
         public void Update(Customer updatedCustomer)
         {
-            var sql = @"UPDATE Customer SET FirstName = 'Mr', LastName = 'Ostrander' WHERE CustomerId = 5";
+            var sql = @"UPDATE Customer SET FirstName = @firstName, LastName = @lastName WHERE CustomerId = @customerId";
 
-            
             _dbConnection.Execute(sql, updatedCustomer);
         }
 
         public void Delete(Customer deleteCustomer)
         {
-            var sql = @"DELETE FROM Customer WHERE CustomerId = 2";
+            var sql = @"DELETE FROM Customer WHERE CustomerId = @customerId";
 
             _dbConnection.Execute(sql, deleteCustomer);
         }
@@ -40,19 +39,14 @@ namespace OrientationApi.DAL
         public IEnumerable<Customer> GetAll()
         {
             var sql = @"Select customerid, username, firstname, lastname from Customer";
-
-            //var guid = Guid.NewGuid();
-            //var customer = _dbConnection.Query<Customer>("Select Username = @Username, FirstName = @FirstName, LastName = @LastName, CustomerId = @CustomerId", new { Customer = (int?)null, CustomerId = guid });
-
-            //customer.First().FirstName.
-
+            
             return _dbConnection.Query<Customer>(sql);
         }
 
         public void Save(Customer newCustomer)
         {
             var sql = @"Insert into Customer(username, firstname, lastname)
-                        Values( 'kate', 'blaze', 'kblaze')";
+                        Values(@username, @firstname, @lastname)";
 
             _dbConnection.Execute(sql, newCustomer);
         }
