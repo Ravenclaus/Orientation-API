@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DefaultRegistry.cs" company="Web Advanced">
+// <copyright file="StructureMapWebApiDependencyScope.cs" company="Web Advanced">
 // Copyright 2012 Web Advanced (www.webadvanced.com)
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,27 +15,22 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OrientationApi.DependencyResolution {
-    using StructureMap;
-    using StructureMap.Configuration.DSL;
-    using StructureMap.Graph;
-    using System.Data;
-    using System.Configuration;
-    using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http.Dependencies;
+using Microsoft.Practices.ServiceLocation;
+using StructureMap;
 
-    public class DefaultRegistry : Registry {
-        #region Constructors and Destructors
-
-        public DefaultRegistry() {
-            Scan(
-                scan => {
-                    scan.TheCallingAssembly();
-                    scan.WithDefaultConventions();
-                });
-
-            For<IDbConnection>().Use(c => new SqlConnection(ConfigurationManager.ConnectionStrings["Crookshanks"].ConnectionString));
+namespace OrientationApi.DependencyResolution
+{
+    /// <summary>
+    /// The structure map web api dependency scope.
+    /// </summary>
+    public class StructureMapWebApiDependencyScope : StructureMapDependencyScope, IDependencyScope
+    {
+        public StructureMapWebApiDependencyScope(IContainer container)
+            : base(container) {
         }
-
-        #endregion
     }
 }

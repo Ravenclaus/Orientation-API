@@ -36,12 +36,8 @@ namespace OrientationApi.Controllers
 
         }
 
-
-
-
-
         [HttpPost]
-        [Route("api/customer")]
+        //[Route("api/customer")]
         public HttpResponseMessage RegisterCustomer(Customer customer)
         {
             if (string.IsNullOrWhiteSpace(customer.UserName))
@@ -76,7 +72,7 @@ namespace OrientationApi.Controllers
         //}
 
         [HttpGet]
-        [Route("api/customer")]
+        //[Route("api/customer")]
         public HttpResponseMessage GetAll()
         {
             var customers = _customerRepository.GetAll();

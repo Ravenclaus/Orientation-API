@@ -41,8 +41,8 @@ namespace OrientationApi.DAL
         {
             var sql = @"Select customerid, username, firstname, lastname from Customer";
 
-            var guid = Guid.NewGuid();
-            var customer = _dbConnection.Query<Customer>("Select Username = @Username, FirstName = @FirstName, LastName = @LastName, CustomerId = @CustomerId", new { Customer = (int?)null, CustomerId = guid });
+            //var guid = Guid.NewGuid();
+            //var customer = _dbConnection.Query<Customer>("Select Username = @Username, FirstName = @FirstName, LastName = @LastName, CustomerId = @CustomerId", new { Customer = (int?)null, CustomerId = guid });
 
             //customer.First().FirstName.
 
