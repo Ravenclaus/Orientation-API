@@ -1,12 +1,6 @@
-﻿using OrientationApi.Controllers.Interfaces;
-using OrientationApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Routing;
 using OrientationApi.Controllers.Interfaces;
 using OrientationApi.Models;
 
@@ -15,39 +9,29 @@ namespace OrientationApi.Controllers
     [RoutePrefix("api/customer")]
     public class CustomerController : ApiController
     {
-
         private readonly ICustomerRepository _customerRepository;
 
 
         public CustomerController(ICustomerRepository customerRepository)
         {
-
             _customerRepository = customerRepository;
         }
 
         [HttpPut]
         public HttpResponseMessage PutUpdateCustomer(Customer customer)
         {
-
             if (string.IsNullOrWhiteSpace(customer.UserName))
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
             _customerRepository.Update(customer);
             return Request.CreateResponse(HttpStatusCode.OK);
-
         }
 
 
-
-
-
         [HttpPost]
-        [Route("api/customer")]
         public HttpResponseMessage RegisterCustomer(Customer customer)
         {
             if (string.IsNullOrWhiteSpace(customer.UserName))
-            {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "You entered an incorrect Username");
-            }
 
             _customerRepository.Save(customer);
 
@@ -67,13 +51,11 @@ namespace OrientationApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/customer")]
         public HttpResponseMessage GetAll()
         {
             var customers = _customerRepository.GetAll();
 
             return Request.CreateResponse(HttpStatusCode.OK, customers);
         }
-
     }
 }
