@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrientationApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace OrientationApi.Controllers.Interfaces
 {
-    interface ICustomerRepository
+    public interface ICustomerRepository
     {
+        void Update(Customer updatedCustomer);
+
+        void Delete(Customer deleteCustomer);
     }
 }

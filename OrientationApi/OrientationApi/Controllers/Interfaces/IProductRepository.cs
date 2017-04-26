@@ -7,10 +7,15 @@ using System.Threading.Tasks;
 
 namespace OrientationApi.Controllers.Interfaces
 {
-    interface IProductRepository
+    public interface IProductRepository
     {
         Product GetSingleProduct(int productId);
 
         List<Product> GetAllProducts();
+
+        void Update(Product updatedProduct);
+
+        void Delete(Product deleteProduct);
+        void GetAll();
     }
 }
