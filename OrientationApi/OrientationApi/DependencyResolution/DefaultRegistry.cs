@@ -34,7 +34,6 @@ namespace OrientationApi.DependencyResolution {
                 });
             For<IDbConnection>().Use(c => new SqlConnection(ConfigurationManager.ConnectionStrings["Crookshanks"].ConnectionString));
 
-            //For<IExample>().Use<Example>();
         }
 
         #endregion

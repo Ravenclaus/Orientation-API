@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -20,17 +21,18 @@ namespace OrientationApi.Controllers
         [HttpPut]
         public HttpResponseMessage PutUpdateCustomer(Customer customer)
         {
-            if (string.IsNullOrWhiteSpace(customer.UserName))
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Username");
+            if (!ModelState.IsValid)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No customers to update");
+
             _customerRepository.Update(customer);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
 
         [HttpPost]
-        public HttpResponseMessage RegisterCustomer(Customer customer)
+        public HttpResponseMessage RegisterCustomer([FromBody] Customer customer)
         {
-            if (string.IsNullOrWhiteSpace(customer.UserName))
+            if (!ModelState.IsValid)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "You entered an incorrect Username");
 
             _customerRepository.Save(customer);
@@ -39,7 +41,6 @@ namespace OrientationApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        //[api/customer/{customerId}]
         [HttpDelete]
         public HttpResponseMessage DeleteCustomer(Customer customer)
         {
@@ -51,11 +52,25 @@ namespace OrientationApi.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage GetAll()
+        public HttpResponseMessage GrabAllCustomers()
         {
-            var customers = _customerRepository.GetAll();
+            var customers = _customerRepository.GetAllCustomers() as List<Customer>;
+
+            if (customers == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No Customers exist");
 
             return Request.CreateResponse(HttpStatusCode.OK, customers);
+        }
+
+        [HttpGet]
+        // [Route("{customerId}")]
+        public HttpResponseMessage GrabSingleCustomer(int customerId)
+        {
+            var customer = _customerRepository.GetSingleCustomer(customerId);
+            if (customer == null)
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "User doesnt exist");
+
+            return Request.CreateResponse(HttpStatusCode.OK, customer);
         }
     }
 }

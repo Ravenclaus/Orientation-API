@@ -1,15 +1,9 @@
-﻿using OrientationApi.Controllers.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using OrientationApi.Controllers.Interfaces;
 using OrientationApi.Models;
-using System.Linq;
-using System.Web;
-using OrientationApi.Models;
-using System.Data;
-using Dapper;
 
 namespace OrientationApi.DAL
 {
@@ -22,32 +16,43 @@ namespace OrientationApi.DAL
             _dbConnection = connection;
         }
 
-        public void Update(Customer updatedCustomer)
-        {
-            var sql = @"UPDATE Customer SET FirstName = 'Mr', LastName = 'O' WHERE CustomerId = 1";
 
-            
-            _dbConnection.Execute(sql, updatedCustomer);
+        public int Update(Customer updatedCustomer)
+        {
+            var sql = @"UPDATE Crookshanks.dbo.Customer SET FirstName = @firstName, LastName = @lastName WHERE CustomerId = @customerid";
+
+            var count = _dbConnection.Execute(sql, updatedCustomer);
+            return count;
         }
 
         public void Delete(Customer deleteCustomer)
         {
-            var sql = @"DELETE FROM Customer WHERE CustomerId = 2";
+            var sql = @"DELETE FROM Customer WHERE CustomerId = @customerId";
 
             _dbConnection.Execute(sql, deleteCustomer);
         }
 
-        public IEnumerable<Customer> GetAll()
+        public IEnumerable<Customer> GetAllCustomers()
         {
-            var sql = @"Select customerid, username, firstname, lastname from Customer";
+            var sql = @"SELECT customerid, username, firstname, lastname FROM Crookshanks.dbo.Customer";
 
-            return _dbConnection.Query<Customer>(sql);
+            return _dbConnection.Query<Customer>(sql).ToList();
+        }
+
+        public Customer GetSingleCustomer(int customerId)
+        {
+            var sql = @"SELECT customerid, username, firstname, lastname FROM Crookshanks.dbo.Customer WHERE customerid = {customerid};";
+
+            var result = _dbConnection.Query<Customer>(sql).ToList();
+            return result.FirstOrDefault();
+
+            //return _dbConnection.QuerySingle<Customer>(sql,new {CustomerId = customerId});
         }
 
         public void Save(Customer newCustomer)
         {
-            var sql = @"Insert into Customer(customerid, username, firstname, lastname)
-                        Values(@customerid, @username, @firstname, @lastname)";
+            var sql = @"INSERT INTO Crookshanks.dbo.Customer(username, firstname, lastname)
+                        VALUES( @username, @firstname, @lastname)";
 
             _dbConnection.Execute(sql, newCustomer);
         }
