@@ -56,7 +56,7 @@ namespace OrientationApi.DAL
         {
             var sql = @"DELETE FROM Product WHERE ProductId = @ProductId";
 
-            _dbConnection.Execute(sql, productIdToDelete);
+            _dbConnection.Execute(sql, new { ProductId = productIdToDelete });
         }
     }
 }
