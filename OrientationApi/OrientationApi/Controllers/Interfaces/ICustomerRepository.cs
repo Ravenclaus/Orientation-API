@@ -17,6 +17,6 @@ namespace OrientationApi.Controllers.Interfaces
 
         IEnumerable<Customer> GetAll();
 
-        //void GetOne(int CustomerId);
+        Customer GetSingleCustomer(int CustomerId);
     }
 }

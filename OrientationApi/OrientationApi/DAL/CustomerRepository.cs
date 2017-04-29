@@ -50,5 +50,12 @@ namespace OrientationApi.DAL
 
             _dbConnection.Execute(sql, newCustomer);
         }
+
+        public Customer GetSingleCustomer(int CustomerId)
+        {
+            var sql = $@"Select customerid, username, firstname, lastname from Crookshanks.dbo.Customer where customerid = @customerid;";
+
+            return _dbConnection.QuerySingle<Customer>(sql);
+        }
     }
 }

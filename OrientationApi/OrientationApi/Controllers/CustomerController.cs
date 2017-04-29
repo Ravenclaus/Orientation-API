@@ -62,14 +62,19 @@ namespace OrientationApi.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        //[HttpGet]
-        //[Route("api/customer/{id}")]
-        //public HttpResponseMessage GetOne()
-        //{
-        //    var customers = _customerRepository.GetOne();
+        [HttpGet]
+        [Route("{CustomerId}")]
+        public HttpResponseMessage GrabSingleCustomer(int customerId)
+        {
+            var customer = _customerRepository.GetSingleCustomer(customerId);
 
-        //    return Request.CreateResponse(HttpStatusCode.OK, customers);
-        //}
+            if (customer == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "User doesn't exist");
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, customer);
+        }
 
         [HttpGet]
         //[Route("api/customer")]
