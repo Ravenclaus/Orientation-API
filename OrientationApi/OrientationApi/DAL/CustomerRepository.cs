@@ -15,7 +15,7 @@ namespace OrientationApi.DAL
 {
     public class CustomerRepository : ICustomerRepository
     {
-        readonly IDbConnection _dbConnection;
+        IDbConnection _dbConnection;
 
         public CustomerRepository(IDbConnection connection)
         {
