@@ -5,9 +5,9 @@ namespace OrientationApi.Controllers.Interfaces
 {
     public interface ICustomerRepository
     {
-        int Update(Customer updatedCustomer);
+        void Update(Customer editingCustomer);
 
-        void Delete(Customer deleteCustomer);
+        void Delete(int deleteCustomer);
         void Save(Customer newCustomer);
 
         IEnumerable<Customer> GetAllCustomers();

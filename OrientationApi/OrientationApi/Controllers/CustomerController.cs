@@ -19,12 +19,15 @@ namespace OrientationApi.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage PutUpdateCustomer(Customer customer)
+        [Route("{customerId}")]
+        public HttpResponseMessage PutUpdateCustomer([FromBody]Customer editingCustomer,int customerId)
         {
             if (!ModelState.IsValid)
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No customers to update");
 
-            _customerRepository.Update(customer);
+            editingCustomer.CustomerId = customerId;
+
+            _customerRepository.Update(editingCustomer);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -42,11 +45,14 @@ namespace OrientationApi.Controllers
         }
 
         [HttpDelete]
-        public HttpResponseMessage DeleteCustomer(Customer customer)
+        [Route("{customerId}")]
+        public HttpResponseMessage DeleteCustomer( int customerId)
         {
-            if (string.IsNullOrWhiteSpace(customer.FirstName))
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "User doesnt exist");
-            _customerRepository.Delete(customer);
+            
+            if (customerId <=0)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No customers to delete");
+
+            _customerRepository.Delete(customerId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -63,7 +69,7 @@ namespace OrientationApi.Controllers
         }
 
         [HttpGet]
-        // [Route("{customerId}")]
+        [Route("{customerId}")]
         public HttpResponseMessage GrabSingleCustomer(int customerId)
         {
             var customer = _customerRepository.GetSingleCustomer(customerId);
