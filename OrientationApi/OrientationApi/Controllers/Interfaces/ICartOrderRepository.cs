@@ -9,6 +9,9 @@ namespace OrientationApi.Controllers.Interfaces
 {
     public interface ICartOrderRepository
     {
-
+        void Save(CartOrder newCartOrder);
+        IEnumerable<CartOrder> GetAll();
+        void Update(CartOrder cartorder);
+        void Delete(CartOrder cartorder);
     }
 }
