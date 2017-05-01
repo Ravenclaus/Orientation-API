@@ -40,7 +40,7 @@ namespace OrientationApi.Controllers
 
 
         [HttpPost]
-        [Route("api/product")]
+        [Route("api/product/")]
         public HttpResponseMessage RoutingForAddingProduct(Product newProduct)
         {
             if(string.IsNullOrWhiteSpace(newProduct.ProductName))
@@ -52,13 +52,15 @@ namespace OrientationApi.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid. Product Price cannot be 0 or negative.");
             }
 
+            _productRepository.AddProduct(newProduct);
+
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
 
         [HttpPut]
-        [Route("api/product")]
-        public HttpResponseMessage RoutingForEditingProduct(Product updatedProduct)
+        [Route("api/product/{productIdToUpdate}")]
+        public HttpResponseMessage RoutingForEditingProduct([FromBody]Product updatedProduct, int productIdToUpdate)
         {
             if (string.IsNullOrWhiteSpace(updatedProduct.ProductName))
             {
@@ -68,6 +70,10 @@ namespace OrientationApi.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid. Product Price cannot be 0 or negative.");
             }
+
+            updatedProduct.ProductId = productIdToUpdate;
+
+            _productRepository.UpdateProductInfo(updatedProduct);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
@@ -81,6 +87,8 @@ namespace OrientationApi.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid. Choose an existing product to delete.");
             }
+
+            _productRepository.DeleteProduct(deleteTargetProductId);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
