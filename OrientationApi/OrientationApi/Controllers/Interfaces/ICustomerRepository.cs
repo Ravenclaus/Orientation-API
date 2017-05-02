@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using OrientationApi.Models;
 
 namespace OrientationApi.Controllers.Interfaces
 {
-    interface ICustomerRepository
+    public interface ICustomerRepository
     {
+        void Update(Customer editingCustomer);
+
+        void Delete(int deleteCustomer);
+        void Save(Customer newCustomer);
+
+        IEnumerable<Customer> GetAllCustomers();
+
+        Customer GetSingleCustomer(int customerId);
     }
 }
