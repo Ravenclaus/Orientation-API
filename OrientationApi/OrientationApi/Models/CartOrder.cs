@@ -7,5 +7,6 @@ namespace OrientationApi.Models
 {
     public class CartOrder
     {
+        public int CustomerId { get; set; }
     }
 }

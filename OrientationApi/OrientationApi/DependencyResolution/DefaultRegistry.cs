@@ -16,7 +16,6 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OrientationApi.DependencyResolution {
-    using StructureMap;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
     using System.Configuration;
@@ -33,7 +32,6 @@ namespace OrientationApi.DependencyResolution {
                     scan.WithDefaultConventions();
                 });
             For<IDbConnection>().Use(c => new SqlConnection(ConfigurationManager.ConnectionStrings["Crookshanks"].ConnectionString));
-
         }
 
         #endregion
