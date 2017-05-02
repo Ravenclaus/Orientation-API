@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OrientationApi.DependencyResolution {
+    using StructureMap;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
     using System.Configuration;
