@@ -42,7 +42,7 @@ namespace OrientationApi.DAL
 
         public Customer GetSingleCustomer(int customerId)
         {
-            var sql = $@"SELECT customerid, username, firstname, lastname FROM Crookshanks.dbo.Customer WHERE customerid = @customerId;";
+            var sql = $@"SELECT customerid, username, firstname, lastname FROM Crookshanks.dbo.Customer WHERE customerId = @customerId;";
 
           
             return _dbConnection.QuerySingle<Customer>(sql);

@@ -31,6 +31,7 @@ namespace OrientationApi.DependencyResolution {
                 scan => {
                     scan.TheCallingAssembly();
                     scan.WithDefaultConventions();
+					scan.With(new ControllerConvention());
                 });
             For<IDbConnection>().Use(c => new SqlConnection(ConfigurationManager.ConnectionStrings["Crookshanks"].ConnectionString));
         }
